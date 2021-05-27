@@ -12,15 +12,7 @@ The DOM element to be mounted on initialization. It must be a valid **CSS select
 - Type: `string`
 - Required: Yes
 
-Waline server address url.
-
-## placeholder
-
-- Type: `string`
-- Default: `Just go go...`
-- Required: No
-
-Comment box placeholder.
+Waline server address url
 
 ## wordLimit
 
@@ -83,7 +75,7 @@ Reviewer attributes. Optional values: `'nick'`, `'mail'`, `'link'`
 - Default: `10`
 - Required: No
 
-number of pages per page.
+number of comments per page.
 
 ## lang
 
@@ -91,9 +83,9 @@ number of pages per page.
 - Default: `'zh-CN'`
 - Required: No
 
-Multilingual support.
+Display language.
 
-Optional value：
+Optional value:
 
 - `'zh'`
 - `'zh-CN'`
@@ -113,6 +105,28 @@ If you need a custom language, please refer to [i18n](./i18n.md).
 
 Article reading statistics.
 
+## dark
+
+- Type: `string`
+- Required: No
+
+Darkmode support
+
+- Set it to `'auto'` will display darkmode due to device settings.
+- Filling in a CSS selector will enable darkmode only when the selector match waline ancestor nodes.
+
+::: tip Examples
+
+- **Docusaurus**: It will enable darkmode by setting `data-theme="dark"` on the `<html>` tag itself. So you need to set `'html[data-theme="dark"]'` as `dark` option.
+
+- **hexo-theme-fluid**: It will enable darkmode by setting `data-user-color-scheme="dark"` on the `<html>` tag itself. So you need to set `'html[data-user-color-scheme="dark"]'` as `dark` option.
+
+- **vuepress-theme-hope**: It will enable darkmode by setting `theme-dark` class on the `<body>` tag itself. So you need to set `'body.theme-dark'` as `dark` option.
+
+:::
+
+For details of custom style and darkmode, please see [Custom Style](./style.md).
+
 ## highlight
 
 - Type: `boolean`
@@ -124,7 +138,7 @@ Article reading statistics.
 ## avatarCDN
 
 - Type: `string`
-- Default: `https://cdn.v2ex.com/gravatar/`
+- Default: `https://sdn.geekzu.org/avatar/`
 - Required: No
 
 Gravatar CDN baseURL.
@@ -137,23 +151,14 @@ Gravatar CDN baseURL.
 
 Whether **force** pulling the latest avatar each time.
 
-## emojiCDN
+## emoji
 
-- Type: `string`
-- Default: `https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/`
-- Required: No
+- Type: `(string | EmojiInfo)[]`
+- Default: `['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo']`
 
-Set **Emoji Pack CDN**, refer to [Custom Emoji](./emoji.md).
+Emoji settings, for details see [Custom Emoji](./emoji.md)
 
-## emojiMaps
-
-- Type: `Object`
-- Default: `null`
-- Required: No
-
-Set `Emoji Packet Mapping’, refer to [Custom Emoji](./emoji.md).
-
-## requiredFields
+## requiredMeta
 
 - Type: `string[]`
 - Default: `[]`
@@ -161,6 +166,7 @@ Set `Emoji Packet Mapping’, refer to [Custom Emoji](./emoji.md).
 
 Set required fields, default anonymous, optional values:
 
+- `[]`
 - `['nick']`
 - `['nick','mail']`
 
@@ -169,11 +175,120 @@ Set required fields, default anonymous, optional values:
 - Type: `Function`
 - Required: No
 
-Custom image upload callback to manage picture by yourself. We will input picture file object when execute it.
+Custom image upload callback to manage picture by yourself. We will pass a picture file object when execute it.
 
-## anonymous
+## login
+
+- Type: `string`
+- Default value: `'enabled'`
+- Required: No
+
+Login mode status, optional values:
+
+- `'enable'`: enable login (default)
+- `'disable'`: Login is disabled, users should fill in infomation to comment
+- `'force'`: Forced login, users must login to comment
+
+### copyright
+
+- Type: `boolean`
+- Default: `true`
+- Required: No
+
+Whether show copyright and version in footer.
+
+::: tip
+
+We hope you can keep it on to support Waline.
+
+:::
+
+## Deprecated API
+
+### langMode
+
+::: warning Deprecated
+
+Please use `locale` instead.
+
+:::
+
+- Type: `Locale`
+- Required: No
+
+Custom I18N.
+
+### placeholder
+
+::: warning Deprecated
+
+Please use `locale.placeholder` instead.
+
+:::
+
+- Type: `string`
+- Default: `Just go go...`
+- Required: No
+
+Comment box placeholder
+
+### emojiCDN
+
+::: warning Deprecated
+
+Please use `emoji` instead.
+
+:::
+
+- Type: `string`
+- Default: `https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/`
+- Required: No
+
+Set **Emoji Pack CDN**, refer to [Custom Emoji](./emoji.md).
+
+### emojiMaps
+
+::: warning Deprecated
+
+Please use `emoji` instead.
+
+:::
+
+- Type: `Object`
+- Default: `null`
+- Required: No
+
+Set `Emoji Packet Mapping’, refer to [Custom Emoji](./emoji.md).
+
+### requiredFields
+
+::: warning Deprecated
+
+Please use `requiredMeta` instead.
+
+:::
+
+### anonymous
+
+::: warning Deprecated
+
+Please use `login` instead.
+
+:::
 
 - Type: `boolean`
 - Required: No
 
 Whether to allow login comments. Both supported by default, set to `true` means only support anonymous comments, `false` means only support login comments.
+
+### copyRight
+
+::: danger Removed
+
+Please use `copyright` instead.
+
+:::
+
+- Type: `boolean`
+- Default: `true`
+- Required: No

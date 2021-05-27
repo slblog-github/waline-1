@@ -1,2 +1,9 @@
-# compress files
-docs/.vuepress/components/csv.js
+# coverage
+coverage/
+
+# output files
+dist/
+
+# temp files
+.temp/
+.cache/

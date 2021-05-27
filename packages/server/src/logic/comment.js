@@ -5,14 +5,17 @@ module.exports = class extends Base {
 
     const { type, path } = this.get();
     const isAllowedGet = this.isGet && (type !== 'list' || path);
+
     if (this.isPost || isAllowedGet) {
       return;
     }
 
     const { userInfo } = this.ctx.state;
+
     if (think.isEmpty(userInfo)) {
       return this.ctx.throw(401);
     }
+
     if (userInfo.type !== 'administrator') {
       return this.ctx.throw(403);
     }
@@ -39,7 +42,7 @@ module.exports = class extends Base {
         };
         break;
 
-      case 'list':
+      case 'list': {
         const { userInfo } = this.ctx.state;
         if (userInfo.type !== 'administrator') {
           return this.fail();
@@ -55,6 +58,7 @@ module.exports = class extends Base {
           },
         };
         break;
+      }
 
       default:
         this.rules = {

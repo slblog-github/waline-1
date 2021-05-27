@@ -14,19 +14,11 @@ Waline 的初始化挂载器。必须是一个有效的 **CSS 选择器**。
 
 Waline 的服务端地址。
 
-## placeholder
-
-- 类型:`string`
-- 默认值: `'撰写评论...'`
-- 必填: 否
-
-评论框 **占位提示符**。
-
 ## wordLimit
 
-- 类型：`number | [number, number]`
-- 默认值：`0`
-- 必要性：`false`
+- 类型: `number | [number, number]`
+- 默认值: `0`
+- 必要性: `false`
 
 评论字数限制。填入单个数字时为最大字数限制。设置为 `0` 时无限制。
 
@@ -113,6 +105,28 @@ Waline 的服务端地址。
 
 文章访问量统计。
 
+## dark
+
+- 类型: `string`
+- 必填: 否
+
+暗黑模式适配。
+
+- 设置 `'auto'` 会根据设备暗黑模式自适应。
+- 填入 CSS 选择器会在对应选择器生效时启用夜间模式。
+
+::: tip 针对不同主题的例子
+
+- **Docusaurus**: 它会在 `<html>` 上通过设置 `data-theme="dark"` 开启暗黑模式，那么你需要将 `dark` 选项设置为 `'html[data-theme="dark"]'`。
+
+- **hexo-theme-fluid**: 它会在 `<html>` 上通过设置 `data-user-color-scheme="dark"` 开启暗黑模式。那么你需要将 `dark` 选项设置为 `'html[data-user-color-scheme="dark"]'`。
+
+- **vuepress-theme-hope**: 它会在 `<body>` 上添加`theme-dark` class 来开启暗黑模式。那么你需要将 `dark` 选项设置为 `body.theme-dark`。
+
+:::
+
+自定义样式与暗黑模式详见 [自定义样式](./style.md)。
+
 ## highlight
 
 - 类型: `boolean`
@@ -124,7 +138,7 @@ Waline 的服务端地址。
 ## avatarCDN
 
 - 类型: `string`
-- 默认值: `https://cdn.v2ex.com/gravatar/`
+- 默认值: `https://sdn.geekzu.org/avatar/`
 - 必填: 否
 
 设置 Gravatar 头像 CDN 地址。
@@ -139,23 +153,14 @@ Waline 的服务端地址。
 
 > 不推荐设置为 `true`，目前的*评论列表头像*会自动带上 `Waline` 的版本号
 
-## emojiCDN
+## emoji
 
-- 类型: `string`
-- 默认值: `https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/`
-- 必填: 否
+- 类型: `(string | EmojiInfo)[]`
+- 默认值: `['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo']`
 
-设置**表情包 CDN**，参考[自定义表情](./emoji.md)
+表情设置，详见 [自定义表情](./emoji.md)
 
-## emojiMaps
-
-- 类型: `Object`
-- 默认值: `微博表情包`
-- 必填: 否
-
-设置**表情包映射**，参考[自定义表情](./emoji.md)
-
-## requiredFields
+## requiredMeta
 
 - 类型: `string[]`
 - 默认值: `[]`
@@ -163,6 +168,7 @@ Waline 的服务端地址。
 
 设置**必填项**，默认匿名，可选值:
 
+- `[]`
 - `['nick']`
 - `['nick', 'mail']`
 
@@ -173,9 +179,120 @@ Waline 的服务端地址。
 
 自定义图片上传方法，方便更好的存储图片。方法执行时会将图片对象传入。
 
-## anonymous
+## login
+
+- 类型: `string`
+- 默认值: `'enabled'`
+- 必填: 否
+
+登录模式状态，可选值:
+
+- `'enable'`: 启用登录 (默认)
+- `'disable'`: 禁用登录，用户只能填写信息评论
+- `'force'`: 强制登录，用户必须注册并登录才可发布评论
+
+## copyright
+
+- 类型: `boolean`
+- 默认值: `true`
+- 必填: 否
+
+是否显示页脚版权信息。
+
+::: tip
+
+我们希望你保持打开以支持 Waline
+
+:::
+
+## 废弃的 API
+
+以下 API 仍然有效，但它们会在未来某个版本中移除
+
+### langMode
+
+::: warning 已废弃
+
+请使用 `locale`
+
+:::
+
+- 类型: `Locale`
+- 必填: 否
+
+自定义语言。
+
+### placeholder
+
+::: warning 已废弃
+
+请使用 `locale.placeholder`
+
+:::
+
+- 类型: `string`
+- 默认值: `'Just Go GO'`
+- 必填: 否
+
+评论框 **占位提示符**。
+
+### emojiCDN
+
+::: warning 已废弃
+
+请使用 `emoji`
+
+:::
+
+- 类型: `string`
+- 默认值: `https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/`
+- 必填: 否
+
+设置**表情包 CDN**，参考[自定义表情](./emoji.md)
+
+### emojiMaps
+
+::: warning 已废弃
+
+请使用 `emoji`
+
+:::
+
+- 类型: `Object`
+- 默认值: `微博表情包`
+- 必填: 否
+
+设置**表情包映射**，参考[自定义表情](./emoji.md)
+
+### requiredFields
+
+::: warning 已废弃
+
+请使用 `requiredMeta`
+
+:::
+
+### anonymous
+
+::: warning 已废弃
+
+请使用 `login`
+
+:::
 
 - 类型: `boolean`
 - 必填: 否
 
 是否允许登录评论。默认情况是两者都支持，设置为 `true` 表示仅支持匿名评论，`false` 表示仅支持登录评论。
+
+### copyRight
+
+::: danger 已移除
+
+请使用 `copyright`
+
+:::
+
+- 类型: `boolean`
+- 默认值: `true`
+- 必填: 否

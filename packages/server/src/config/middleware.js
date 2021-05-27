@@ -8,6 +8,7 @@ module.exports = [
     handle: 'dashboard',
     match: /^\/ui/,
   },
+
   {
     handle: 'meta',
     options: {
@@ -16,15 +17,15 @@ module.exports = [
       requestTimeoutCallback: isTcb ? false : () => {},
     },
   },
-  {
-    handle: cors,
-  },
+
+  { handle: cors },
+
   {
     handle: 'trace',
     enable: !think.isCli,
     options: {
       debug: true,
-      contentType: (_) => 'json',
+      contentType: () => 'json',
       error(err, ctx) {
         if (/favicon.ico$/.test(ctx.url)) {
           return;
@@ -37,6 +38,7 @@ module.exports = [
       },
     },
   },
+
   {
     handle: 'payload',
     options: {
@@ -44,13 +46,14 @@ module.exports = [
       limit: '5mb',
     },
   },
+
   {
     handle: 'router',
     options: {},
   },
-  {
-    handle: routerREST,
-  },
+
+  { handle: routerREST },
+
   'logic',
   'controller',
 ];
